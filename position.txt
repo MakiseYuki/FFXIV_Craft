@@ -1,0 +1,2 @@
+CLICK_X = 1571
+CLICK_Y = 1045
