@@ -23,8 +23,8 @@ import keyboard
 
 # Pixel coordinates of the "Synthesize" button.
 # Run get_position.py to find the exact coordinates.
-CLICK_X = 1571
-CLICK_Y = 1045
+CLICK_X = 2268
+CLICK_Y = 1498
 
 # How long to wait after pressing Alt+7 before the next craft (seconds).
 CRAFT_WAIT = 10.0
@@ -37,7 +37,7 @@ MACRO_START_DELAY = 0.5
 
 # Number of crafts to run each time you start the loop.
 # Set to 0 to run forever until manually stopped.
-CRAFT_CYCLES = 30
+CRAFT_CYCLES = 60
 
 # Hotkeys
 HOTKEY_TOGGLE = "f6"   # start / stop the loop
