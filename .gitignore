@@ -1,0 +1,16 @@
+# Build outputs
+bin/
+obj/
+
+# NuGet lock file (regenerated on restore)
+packages.lock.json
+
+# Python virtual environment
+.venv/
+__pycache__/
+*.pyc
+
+# Temp/editor files
+*.zfp~
+*.user
+.vs/
