@@ -238,7 +238,7 @@ public sealed class Plugin : IDalamudPlugin
                 NativeMethods.DoubleLeftClickAt(this.configuration.ClickX, this.configuration.ClickY);
                 await this.WaitResponsiveAsync(this.configuration.ClickToMacroDelay, token).ConfigureAwait(false);
 
-                NativeMethods.PressVirtualKey(NativeMethods.VirtualKeyF5);
+                NativeMethods.PressVirtualKey((byte)this.configuration.CraftRecipeKey);
                 await this.WaitResponsiveAsync(this.configuration.MacroStartDelay, token).ConfigureAwait(false);
                 await this.WaitResponsiveAsync(this.configuration.CraftWait, token).ConfigureAwait(false);
 

@@ -92,6 +92,11 @@ public sealed class ConfigWindow : Window, IDisposable
         }
         HelpMarker("How long (in seconds) to wait after triggering the craft macro before looping.\nIncrease this if your macro takes longer to finish.");
 
+        DrawKeyCombo("CRAFT_RECIPE_KEY", "CraftRecipeKey",
+            this.configuration.CraftRecipeKey,
+            v => { this.configuration.CraftRecipeKey = v; this.saveConfiguration(); },
+            "The keyboard key sent to the game to start the craft macro after clicking the recipe.\nDefaults to F5 (the standard game macro key). Change this if you have remapped your macro hotbar.");
+
         ImGui.Spacing();
         ImGui.Separator();
 
