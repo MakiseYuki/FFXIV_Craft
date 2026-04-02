@@ -1,101 +1,125 @@
 # CusCraft — FFXIV Crafting Loop Plugin
 
-A [Dalamud](https://github.com/yanmucorp/Dalamud) plugin that automates a configurable crafting loop in Final Fantasy XIV.  
-It double-clicks a recipe button, fires a macro key, waits for the craft to finish, and repeats — for as many cycles as you need.
+CusCraft is a plugin for Final Fantasy XIV that automates repeating a craft over and over so you don't have to click the same button hundreds of times.  
+You tell it **where** the Synthesize button is on your screen, **which key** fires your craft macro, and **how many** items you want — then just let it run.
 
 ---
 
-## Requirements
+## Before You Begin
 
-- FFXIV with [yanmucorp/Dalamud](https://github.com/yanmucorp/Dalamud) (API level 12) loaded
-- A craft macro already set up on your hotbar (default key: **F5**)
+You need two things installed before CusCraft will work:
+
+- **Final Fantasy XIV** (PC version)
+- **Dalamud** — a free plugin framework for FFXIV. Get it via [XIVLauncher](https://goatcorp.github.io/), which installs Dalamud automatically.
+
+You also need a **craft macro** already set up on your hotbar (the plugin sends a keypress to trigger it — F5 by default).  
+If you don't have a macro yet, search "FFXIV crafting macro" for guides on the official forums or Reddit.
 
 ---
 
 ## Installation
 
-1. Download the latest release from the [Releases](https://github.com/MakiseYuki/FFXIV_Craft/releases) page.
-2. Copy the two files to your Dalamud dev-plugin folder  
-   (e.g. `%AppData%\FFXIVSimpleLauncher\Dalamud\Config\devPlugins\CusCraft\`):
+1. Go to the [Releases](https://github.com/MakiseYuki/FFXIV_Craft/releases) page and download the latest release.
+2. Extract and copy these two files into your Dalamud dev-plugin folder:
    - `CusCraftPlugin.dll`
    - `CusCraftPlugin.json`
-3. In-game, open the Dalamud plugin installer → **Dev Tools** → load the dev plugin.
+
+   The folder is usually at:
+   ```
+   %AppData%\XIVLauncher\dalamudConfig\devPlugins\CusCraft\
+   ```
+   (Create the `CusCraft` folder if it doesn't exist.)
+
+3. Launch FFXIV through XIVLauncher, then open the Dalamud Plugin Installer (`/xlplugins` in chat) → **Dev Tools** tab → enable CusCraft.
+
+---
+
+## Setup
+
+Before starting a crafting loop, you need to tell the plugin exactly where the **Synthesize** button is on *your* screen:
+
+1. Open the crafting menu in-game and hover your mouse directly over the **Synthesize** button.
+2. Type `/cus_craft getpos` in the chat box and press Enter.  
+   The plugin saves that position — you're done.
+
+> **Why is this needed?** The plugin clicks that button automatically for you. Every monitor and UI layout is different, so it needs your coordinates once.
+> **Note:** If you change your UI layout or switch to a different monitor, you'll need to repeat this step.
 
 ---
 
 ## Quick Start
 
 1. Open the crafting menu and navigate to the recipe you want to mass-craft.
-2. Position your mouse cursor over the **Synthesize** (confirm) button.
-3. Type `/cus_craft getpos` in chat to save that screen position.
-4. Type `/cus_craft config` to open the settings window and adjust the parameters.
-5. Type `/cus_craft start` (or press your **Start Key** hotkey) to begin.
+2. Make sure you've done the **Setup** if your UI layout has changed since last time.
+3. Type `/cus_craft start` in chat — or press your configured **Start Key** hotkey.
+4. The plugin will begin crafting automatically. To stop early, type `/cus_craft stop`.
 
 ---
 
-## Slash Commands
+## Chat Commands
 
-All commands are prefixed with `/cus_craft`.
+Type these in the FFXIV chat box:
 
-| Command | Description |
+| Command | What it does |
 |---|---|
-| `/cus_craft config` | Open the settings window (also shows on `/cus_craft` alone) |
-| `/cus_craft start` | Start the crafting loop (also resumes if paused) |
-| `/cus_craft stop` | Stop the crafting loop immediately |
-| `/cus_craft pause` | Pause or resume the loop mid-cycle |
-| `/cus_craft getpos` | Save the current cursor position as CLICK_X / CLICK_Y |
+| `/cus_craft config` | Open the settings window |
+| `/cus_craft start` | Start crafting (also resumes if paused) |
+| `/cus_craft stop` | Stop immediately |
+| `/cus_craft pause` | Pause mid-loop; type again to resume |
+| `/cus_craft getpos` | Save your current mouse position as the click target |
 
 ---
 
 ## Settings
 
-Open the settings window with `/cus_craft config`.  
-Every field has an inline **(?)** tooltip — hover it for a detailed description.
+Open the settings window any time with `/cus_craft config` or from the Plugin Installer.  
+Hover any **(?)** icon in the window for a detailed description of that setting.
 
-### Craft Target
+### Where to click
 
 | Setting | Default | Description |
 |---|---|---|
-| **CLICK_X** | 2268 | Screen X coordinate of the Synthesize button. |
-| **CLICK_Y** | 1498 | Screen Y coordinate of the Synthesize button. |
-| **Capture current cursor position** | — | Button that saves your live mouse position as CLICK_X / CLICK_Y. Alternatively use `/cus_craft getpos`. |
+| **CLICK_X / CLICK_Y** | 2268 / 1498 | Screen coordinates of the Synthesize button. Use the **Capture** button or `/cus_craft getpos` to set these automatically. |
 
-> **Tip:** Move your mouse over the Synthesize button and click **Capture current cursor position** (or use `/cus_craft getpos`) to set the coordinates automatically.
+> **Note:** When using the Capture button, make sure to hover your mouse directly over the Synthesize button before clicking Capture.
 
 ### Timing
 
 | Setting | Default | Description |
 |---|---|---|
-| **CRAFT_WAIT** | 10.0 s | How long to wait after pressing the macro key before starting the next cycle. Increase this if your macro runs longer. |
-| **CRAFT_RECIPE_KEY** | F5 | The key sent to the game to trigger your craft macro. Change this if you have remapped the macro hotbar slot. |
+| **CRAFT_WAIT** | 10.0 s | How long to wait after your macro starts before the next craft begins. If the plugin starts the next craft too early, increase this to match your macro's length. |
+| **CRAFT_RECIPE_KEY** | F5 | The key that triggers your craft macro. Change this if your macro is on a different hotbar slot. |
 
-### Loop
+### Number of crafts
 
 | Setting | Default | Description |
 |---|---|---|
-| **CRAFT_CYCLES** | 60 | Number of crafts to perform before stopping. Set to **0** for unlimited. |
+| **CRAFT_CYCLES** | 60 | How many times to craft before stopping. Set to **0** to run forever until you stop it manually. |
 
-### Hotkeys
+### Hotkeys (optional)
 
-Hotkeys are detected globally while the plugin is loaded and trigger on key-down (not held).  
-Set a key to **— Disabled —** to turn it off.
+You can assign keyboard shortcuts to start, stop, and pause the loop without typing in chat.  
+Set any hotkey to **— Disabled —** to leave it unbound.
+
+> **Note:** If hotkey is disabled, you can still control the plugin with chat commands. Hotkeys are just a convenient alternative.
 
 | Hotkey | Default | Description |
 |---|---|---|
-| **Start Key** | Disabled | Start the crafting loop. If the loop is paused, resumes it instead. |
-| **Stop Key** | Disabled | Stop the crafting loop immediately. |
-| **Pause / Resume Key** | Disabled | Pause the loop mid-cycle; press again to resume. |
+| **Start Key** | Disabled | Start (or resume) the crafting loop. |
+| **Stop Key** | Disabled | Stop the loop immediately. |
+| **Pause / Resume Key** | Disabled | Pause mid-cycle; press again to resume. |
 
-Available key choices: F1 – F12, Insert, Delete, Home, End, Page Up, Page Down.
+Available keys: F1 – F12, Insert, Delete, Home, End, Page Up, Page Down.
 
 ---
 
-## Troubleshooting
+## Common Troubleshooting
 
 | Problem | Solution |
 |---|---|
-| Plugin fails to load with API mismatch | Ensure your Dalamud build is API level 12 (yanmucorp/Dalamud v12.x). |
-| Click doesn't hit the Synthesize button | Re-capture the position with `/cus_craft getpos` or adjust CLICK_X / CLICK_Y manually. |
-| Craft finishes before the next cycle starts | Increase **CRAFT_WAIT** to give the macro more time. |
-| Wrong macro key fires | Change **CRAFT_RECIPE_KEY** to match the key your macro is bound to. |
-| Loop runs forever | Set **CRAFT_CYCLES** to the desired count (0 = unlimited). |
+| The plugin doesn't appear in the installer | Make sure both `CusCraftPlugin.dll` and `CusCraftPlugin.json` are in the correct folder and that you're in the **Dev Tools** tab. |
+| The click misses the Synthesize button | Redo the **Setup**: hover your mouse over the button and type `/cus_craft getpos`. |
+| The next craft starts before the current one finishes | Increase **CRAFT_WAIT** in settings to match your macro's total duration. |
+| The wrong macro fires | Change **CRAFT_RECIPE_KEY** to whatever key your craft macro is bound to. |
+| It keeps crafting and won't stop on its own | Set **CRAFT_CYCLES** to the number of items you want (0 means unlimited). |
+| Plugin fails to load | Make sure XIVLauncher and Dalamud are up to date. |
