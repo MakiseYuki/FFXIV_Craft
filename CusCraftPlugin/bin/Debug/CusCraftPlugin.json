@@ -1,0 +1,21 @@
+{
+  "Author": "MakiseYuki",
+  "Name": "CusCraft",
+  "InternalName": "CusCraftPlugin",
+  "AssemblyVersion": "1.0.0.0",
+  "Description": "CusCraft provides start, stop, pause/resume, and cursor-position capture commands for a configurable crafting workflow inside FFXIV.",
+  "ApplicableVersion": "any",
+  "RepoUrl": "https://github.com/MakiseYuki/FFXIV_Craft",
+  "Tags": [
+    "crafting",
+    "macro",
+    "utility"
+  ],
+  "DalamudApiLevel": 14,
+  "LoadRequiredState": 0,
+  "LoadSync": false,
+  "CanUnloadAsync": false,
+  "LoadPriority": 0,
+  "Punchline": "Runs a configurable crafting loop from slash commands.",
+  "AcceptsFeedback": true
+}
