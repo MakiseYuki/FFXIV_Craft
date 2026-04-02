@@ -90,21 +90,6 @@ Available key choices: F1 – F12, Insert, Delete, Home, End, Page Up, Page Down
 
 ---
 
-## How the Loop Works
-
-Each cycle performs these steps:
-
-1. **Double-click** the saved screen coordinate (CLICK_X, CLICK_Y) to confirm the recipe.
-2. Wait a brief internal delay, then press **CRAFT_RECIPE_KEY** to start the craft macro.
-3. Wait **CRAFT_WAIT** seconds for the macro to finish.
-4. Increment the cycle counter.  
-   - Every 10 cycles a progress message is printed to chat.
-5. Repeat until CRAFT_CYCLES is reached (or until stopped/paused).
-
-The loop respects pause at every wait step, so pausing is always responsive.
-
----
-
 ## Troubleshooting
 
 | Problem | Solution |
