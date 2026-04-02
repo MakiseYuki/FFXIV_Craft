@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using Dalamud.Game.ClientState.Keys;
 using Dalamud.Game.Command;
 using Dalamud.Interface.Windowing;
 using Dalamud.Plugin;
@@ -15,6 +16,7 @@ public sealed class Plugin : IDalamudPlugin
     private readonly IDalamudPluginInterface pluginInterface;
     private readonly ICommandManager commandManager;
     private readonly IChatGui chatGui;
+    private readonly IKeyState keyState;
     private readonly WindowSystem windowSystem = new("CusCraft");
     private readonly Configuration configuration;
     private readonly ConfigWindow configWindow;
@@ -26,14 +28,21 @@ public sealed class Plugin : IDalamudPlugin
     private bool disposed;
     private int completedCycles;
 
+    // Hotkey edge-detection: track whether each key was down last frame.
+    private bool prevStartKeyDown;
+    private bool prevStopKeyDown;
+    private bool prevPauseKeyDown;
+
     public Plugin(
         IDalamudPluginInterface pluginInterface,
         ICommandManager commandManager,
-        IChatGui chatGui)
+        IChatGui chatGui,
+        IKeyState keyState)
     {
         this.pluginInterface = pluginInterface;
         this.commandManager = commandManager;
         this.chatGui = chatGui;
+        this.keyState = keyState;
 
         this.configuration = this.pluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
         this.configuration.Initialize(this.pluginInterface);
@@ -42,9 +51,6 @@ public sealed class Plugin : IDalamudPlugin
             this.configuration,
             this.SaveConfiguration,
             this.GetStatusText,
-            this.StartCrafting,
-            () => this.StopCrafting(),
-            this.TogglePause,
             this.CaptureCursorPosition);
 
         this.windowSystem.AddWindow(this.configWindow);
@@ -318,6 +324,28 @@ public sealed class Plugin : IDalamudPlugin
     private void DrawUi()
     {
         this.windowSystem.Draw();
+        this.PollHotkeys();
+    }
+
+    private void PollHotkeys()
+    {
+        this.PollKey(this.configuration.HotkeyStart, ref this.prevStartKeyDown, this.StartCrafting);
+        this.PollKey(this.configuration.HotkeyStop,  ref this.prevStopKeyDown,  () => this.StopCrafting());
+        this.PollKey(this.configuration.HotkeyPause, ref this.prevPauseKeyDown, this.TogglePause);
+    }
+
+    private void PollKey(int vk, ref bool wasDown, Action action)
+    {
+        if (vk == 0)
+        {
+            wasDown = false;
+            return;
+        }
+
+        var isDown = this.keyState[(VirtualKey)vk];
+        if (isDown && !wasDown)
+            action();
+        wasDown = isDown;
     }
 
     private void PrintUsage()
