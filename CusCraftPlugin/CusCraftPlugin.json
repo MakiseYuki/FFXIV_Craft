@@ -4,6 +4,7 @@
   "Punchline": "Runs a configurable crafting loop from slash commands.",
   "Description": "CusCraft provides start, stop, pause/resume, and cursor-position capture commands for a configurable crafting workflow inside FFXIV.",
   "RepoUrl": "https://github.com/MakiseYuki/FFXIV_Craft",
+  "DalamudApiLevel": 12,
   "ApplicableVersion": "any",
   "Tags": [
     "crafting",
