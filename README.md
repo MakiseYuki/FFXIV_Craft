@@ -10,7 +10,7 @@ You tell it **where** the Synthesize button is on your screen, **which key** fir
 You need two things installed before CusCraft will work:
 
 - **Final Fantasy XIV** (PC version)
-- **Dalamud** — a free plugin framework for FFXIV. Get it via [XIVLauncher](https://goatcorp.github.io/), which installs Dalamud automatically.
+- **Dalamud** — a free plugin framework for FFXIV. Get it via [XIVTCLauncher](https://github.com/cycleapple/XIVTCLauncher), which installs Dalamud automatically.
 
 You also need a **craft macro** already set up on your hotbar (the plugin sends a keypress to trigger it — F5 by default).  
 If you don't have a macro yet, search "FFXIV crafting macro" for guides on the official forums or Reddit.
@@ -26,11 +26,11 @@ If you don't have a macro yet, search "FFXIV crafting macro" for guides on the o
 
    The folder is usually at:
    ```
-   %AppData%\XIVLauncher\dalamudConfig\devPlugins\CusCraft\
+   %AppData%\FFXIVSimpleLauncher\Dalamud\Config\devPlugins\CusCraft\
    ```
    (Create the `CusCraft` folder if it doesn't exist.)
 
-3. Launch FFXIV through XIVLauncher, then open the Dalamud Plugin Installer (`/xlplugins` in chat) → **Dev Tools** tab → enable CusCraft.
+3. Launch FFXIV through XIVTCLauncher, then open the Dalamud Plugin Installer (`/xlplugins` in chat) → **Dev Tools** tab → enable CusCraft.
 
 ---
 
@@ -122,4 +122,4 @@ Available keys: F1 – F12, Insert, Delete, Home, End, Page Up, Page Down.
 | The next craft starts before the current one finishes | Increase **CRAFT_WAIT** in settings to match your macro's total duration. |
 | The wrong macro fires | Change **CRAFT_RECIPE_KEY** to whatever key your craft macro is bound to. |
 | It keeps crafting and won't stop on its own | Set **CRAFT_CYCLES** to the number of items you want (0 means unlimited). |
-| Plugin fails to load | Make sure XIVLauncher and Dalamud are up to date. |
+| Plugin fails to load | Make sure XIVTCLauncher and Dalamud are up to date. |
