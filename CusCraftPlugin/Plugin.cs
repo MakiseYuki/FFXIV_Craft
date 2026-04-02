@@ -63,6 +63,7 @@ public sealed class Plugin : IDalamudPlugin
 
         this.pluginInterface.UiBuilder.Draw += this.DrawUi;
         this.pluginInterface.UiBuilder.OpenConfigUi += this.OpenConfigUi;
+        this.pluginInterface.UiBuilder.OpenMainUi += this.OpenConfigUi;
 
         this.chatGui.Print("CusCraft loaded. Use /cus_craft config to open settings.");
     }
@@ -80,6 +81,7 @@ public sealed class Plugin : IDalamudPlugin
         this.commandManager.RemoveHandler(CommandName);
         this.pluginInterface.UiBuilder.Draw -= this.DrawUi;
         this.pluginInterface.UiBuilder.OpenConfigUi -= this.OpenConfigUi;
+        this.pluginInterface.UiBuilder.OpenMainUi -= this.OpenConfigUi;
 
         this.windowSystem.RemoveAllWindows();
         this.configWindow.Dispose();
