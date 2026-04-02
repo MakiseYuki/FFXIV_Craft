@@ -14,14 +14,11 @@ It double-clicks a recipe button, fires a macro key, waits for the craft to fini
 
 ## Installation
 
-1. Build the plugin (requires .NET 10 SDK):
-   ```
-   dotnet build CusCraftPlugin/CusCraftPlugin.csproj -c Debug
-   ```
-2. Copy the two output files to your Dalamud dev-plugin folder  
+1. Download the latest release from the [Releases](https://github.com/MakiseYuki/FFXIV_Craft/releases) page.
+2. Copy the two files to your Dalamud dev-plugin folder  
    (e.g. `%AppData%\FFXIVSimpleLauncher\Dalamud\Config\devPlugins\CusCraft\`):
-   - `CusCraftPlugin/bin/Debug/CusCraftPlugin.dll`
-   - `CusCraftPlugin/bin/Debug/CusCraftPlugin.json`
+   - `CusCraftPlugin.dll`
+   - `CusCraftPlugin.json`
 3. In-game, open the Dalamud plugin installer → **Dev Tools** → load the dev plugin.
 
 ---
