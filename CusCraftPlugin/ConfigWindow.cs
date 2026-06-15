@@ -100,6 +100,41 @@ public sealed class ConfigWindow : Window, IDisposable
         ImGui.Spacing();
         ImGui.Separator();
 
+        // ── Advanced Crafting (two-macro mode) ────────────────────────────
+        ImGui.TextDisabled("Advanced Crafting");
+
+        var advancedCrafting = this.configuration.AdvancedCrafting;
+        if (ImGui.Checkbox("Enable Advanced Crafting (two macros)", ref advancedCrafting))
+        {
+            this.configuration.AdvancedCrafting = advancedCrafting;
+            this.saveConfiguration();
+        }
+        HelpMarker("When enabled, a second macro key is pressed after the first macro finishes.\nUse this for crafting rotations that are too long to fit in one macro.");
+
+        if (this.configuration.AdvancedCrafting)
+        {
+            ImGui.Indent();
+
+            DrawKeyCombo("CRAFT_RECIPE_KEY_2", "CraftRecipeKey2",
+                this.configuration.CraftRecipeKey2,
+                v => { this.configuration.CraftRecipeKey2 = v; this.saveConfiguration(); },
+                "The keyboard key sent to the game to start the second craft macro.\nDefaults to F6.");
+
+            var macroBetweenWait = this.configuration.MacroBetweenWait;
+            if (ImGui.InputFloat("MACRO_BETWEEN_WAIT (seconds)", ref macroBetweenWait, 0.1f, 1.0f, "%.1f"))
+            {
+                this.configuration.MacroBetweenWait = Math.Max(0.0f, macroBetweenWait);
+                this.saveConfiguration();
+            }
+            HelpMarker("How long (in seconds) to wait after the first macro finishes before triggering the second macro.");
+
+            ImGui.Unindent();
+        }
+
+        ImGui.Spacing();
+
+        ImGui.Separator();
+
         // ── Loop ──────────────────────────────────────────────────────────
         ImGui.TextDisabled("Loop");
 
