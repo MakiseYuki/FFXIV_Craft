@@ -240,9 +240,19 @@ public sealed class Plugin : IDalamudPlugin
                 NativeMethods.DoubleLeftClickAt(this.configuration.ClickX, this.configuration.ClickY);
                 await this.WaitResponsiveAsync(this.configuration.ClickToMacroDelay, token).ConfigureAwait(false);
 
+                // Macro 1
                 NativeMethods.PressVirtualKey((byte)this.configuration.CraftRecipeKey);
                 await this.WaitResponsiveAsync(this.configuration.MacroStartDelay, token).ConfigureAwait(false);
                 await this.WaitResponsiveAsync(this.configuration.CraftWait, token).ConfigureAwait(false);
+
+                // Macro 2 (advanced mode only)
+                if (this.configuration.AdvancedCrafting)
+                {
+                    await this.WaitResponsiveAsync(this.configuration.MacroBetweenWait, token).ConfigureAwait(false);
+                    NativeMethods.PressVirtualKey((byte)this.configuration.CraftRecipeKey2);
+                    await this.WaitResponsiveAsync(this.configuration.MacroStartDelay, token).ConfigureAwait(false);
+                    await this.WaitResponsiveAsync(this.configuration.CraftWait, token).ConfigureAwait(false);
+                }
 
                 var currentCount = Interlocked.Increment(ref this.completedCycles);
                 if (!this.disposed && (currentCount == 1 || currentCount % 10 == 0))

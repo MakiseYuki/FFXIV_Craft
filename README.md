@@ -90,6 +90,30 @@ Hover any **(?)** icon in the window for a detailed description of that setting.
 | **CRAFT_WAIT** | 10.0 s | How long to wait after your macro starts before the next craft begins. If the plugin starts the next craft too early, increase this to match your macro's length. |
 | **CRAFT_RECIPE_KEY** | F5 | The key that triggers your craft macro. Change this if your macro is on a different hotbar slot. |
 
+### Advanced Crafting (two-macro mode)
+
+Some crafting rotations are too long to fit in a single in-game macro (max 15 lines per macro). FFXIV players typically split these into two consecutive macros. Enable **Advanced Crafting** to support this.
+
+When active, the loop becomes:
+
+```
+[Click Synthesize] → wait → [Press Macro 1 Key] → CRAFT_WAIT
+                          → MACRO_BETWEEN_WAIT
+                          → [Press Macro 2 Key] → CRAFT_WAIT
+→ (next craft cycle)
+```
+
+The **total time spent per craft** in advanced mode is:
+> `(CRAFT_WAIT × 2) + MACRO_BETWEEN_WAIT`  *(plus small internal delays)*
+
+| Setting | Default | Description |
+|---|---|---|
+| **Enable Advanced Crafting** | Off | Toggle to activate two-macro mode. When off, only Macro 1 is used (original behaviour). |
+| **CRAFT_RECIPE_KEY_2** | F6 | The key that triggers your **second** craft macro. |
+| **MACRO_BETWEEN_WAIT** | 3.0 s | How long to wait after Macro 1 finishes before pressing the Macro 2 key. Increase this if you see the second macro being missed. |
+
+> **Tip:** `CRAFT_WAIT` is a per-macro wait. Set it to however long **one** of your macros takes to complete. Both macros share this value.
+
 ### Number of crafts
 
 | Setting | Default | Description |
@@ -123,3 +147,6 @@ Available keys: F1 – F12, Insert, Delete, Home, End, Page Up, Page Down.
 | The wrong macro fires | Change **CRAFT_RECIPE_KEY** to whatever key your craft macro is bound to. |
 | It keeps crafting and won't stop on its own | Set **CRAFT_CYCLES** to the number of items you want (0 means unlimited). |
 | Plugin fails to load | Make sure XIVTCLauncher and Dalamud are up to date. |
+| Macro 2 never fires in advanced mode | Make sure **Enable Advanced Crafting** is checked in settings and **CRAFT_RECIPE_KEY_2** is set to the correct key. |
+| Macro 2 fires too early / craft is incomplete | Increase **MACRO_BETWEEN_WAIT** to give Macro 1 more time to finish before Macro 2 is triggered. |
+| The craft finishes but the next cycle starts too soon | In advanced mode, `CRAFT_WAIT` applies to **each** macro. Increase it to match the longer of your two macros. |

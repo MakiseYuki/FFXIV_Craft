@@ -16,6 +16,15 @@ public sealed class Configuration : IPluginConfiguration
     // VirtualKey code sent to the game to trigger the craft macro (default F5 = 0x74).
     public int CraftRecipeKey { get; set; } = 0x74;
 
+    // Advanced two-macro mode.
+    public bool AdvancedCrafting { get; set; } = false;
+
+    // VirtualKey code for the second macro (default F6 = 0x75).
+    public int CraftRecipeKey2 { get; set; } = 0x75;
+
+    // Seconds to wait between macro 1 finishing and triggering macro 2.
+    public float MacroBetweenWait { get; set; } = 3.0f;
+
     // 0 = disabled; otherwise a Windows VirtualKey code (e.g. VK_F5 = 0x74).
     public int HotkeyStart { get; set; } = 0;
     public int HotkeyStop { get; set; } = 0;
