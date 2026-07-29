@@ -4,6 +4,19 @@ All notable changes to CusCraft will be documented in this file.
 
 ---
 
+## [1.1.1] - 2026-07-29
+
+### Fixed
+- Plugin failed to load after a game/Dalamud update (`System.Runtime` `FileNotFoundException` /
+  `ReflectionTypeLoadException`, "DevPlugin is outdated" warning). Retargeted the build to match the
+  Dalamud version actually used by the installed launcher (`Dalamud.NET.Sdk` 15.0.0 → 13.1.0,
+  `net10.0-windows` → `net9.0-windows`).
+- Migrated `ImGuiNET` usages to `Dalamud.Bindings.ImGui` (namespace change in newer Dalamud).
+- Corrected the stale `DalamudApiLevel` (12 → 13) in the plugin manifest, which was causing Dalamud's
+  Plugin Installer to show the plugin as outdated even though it loaded successfully.
+
+---
+
 ## [1.1.0] - 2026-06-16
 
 ### Added
